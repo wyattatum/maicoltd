@@ -1,7 +1,7 @@
 const express = require("express");
 //import routes
 const userRoutes = require("./routes/user_routes");
-
+const productRoutes = require("./routes/productRoutes");
 
 const app = express();
 
@@ -11,6 +11,8 @@ app.use(express.json());
 // ✅ USE ROUTES
 app.use("/", userRoutes);
 
+app.use("/", productRoutes);
+
 
 // TEST route
 app.get("/", (req, res) => {
@@ -18,7 +20,7 @@ app.get("/", (req, res) => {
 });
 
 
-
+ 
 // START SERVER
 app.listen(3000, () => {
   console.log("🚀 Server running on http://localhost:3000");
