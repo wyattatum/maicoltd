@@ -37,7 +37,7 @@ const updateProduct = (req, res) => {
     res.send("Product updated successfully");
   });
 };
-
+       
 // DELETE
 const deleteProduct = (req, res) => {
   const id = req.params.id;
