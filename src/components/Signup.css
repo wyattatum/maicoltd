@@ -1,0 +1,42 @@
+body{
+    background-color:#f2f4f8 ;
+    font-family: Arial, sans-serif;
+}
+form{
+    width:320px;
+    margin:100px auto;
+    padding:25px;
+    background-color:white ;
+    border-radius:10px;
+    text-align:center;
+
+}
+
+h2{
+    margin-bottom:20px;
+}
+input{
+    width:100%;
+    border-radius:10px;
+    border:1px solid #ccc;
+    padding:10px;
+    margin-bottom:12px;
+
+}
+input:focus{
+    border-color:blue;
+    outline:none;
+}
+button{
+    width:100%;
+    border-radius:5px;
+    border:none;
+    padding:10px;
+    background-color:;
+    color:white;
+    cursor:pointer;
+}
+
+button:hover{
+    background-color:darkblue;
+}
