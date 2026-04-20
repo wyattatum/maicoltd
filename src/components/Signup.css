@@ -32,11 +32,30 @@ button{
     border-radius:5px;
     border:none;
     padding:10px;
-    background-color:;
+    /* background-color:; */
     color:white;
     cursor:pointer;
 }
 
 button:hover{
     background-color:darkblue;
+}
+
+
+
+
+.link-text {
+    margin-top: 15px;
+    font-size: 13px;
+    color: #555;
+}
+
+.link-text a {
+    color: darkblue;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.link-text a:hover {
+    text-decoration: underline;
 }
