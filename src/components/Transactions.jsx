@@ -3,6 +3,7 @@ import "./Dashboard.css";
 
 function Transactions() {
   const [transactions, setTransactions] = useState([]);
+  const [products, setProducts] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState({ user_id: "", product_id: "", status: "IN", quantity: "" });
   const [message, setMessage] = useState("");
@@ -10,7 +11,11 @@ function Transactions() {
   useEffect(() => {
     fetchTransactions();
   }, []);
-
+  useEffect(() => {
+    fetch("http://localhost:3000/api/products") 
+      .then(res => res.json())
+      .then(data => setProducts(data));
+  }, []);
   function fetchTransactions() {
     fetch("http://localhost:3000/api/transactions")
       .then((res) => res.json())
@@ -18,22 +23,29 @@ function Transactions() {
       .catch(() => setMessage("Failed to load transactions"));
   }
 
+ 
   function handleSubmit(e) {
-    e.preventDefault();
-    fetch("http://localhost:3000/api/transactions", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
+  e.preventDefault();
+  const token = localStorage.getItem("token"); // <-- define it here
+
+  fetch("http://localhost:3000/api/transactions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`, // now valid
+    },
+    body: JSON.stringify(form),
+  })
+    .then((res) => res.text())
+    .then((msg) => {
+      setMessage(msg);
+      setShowForm(false);
+      setForm({ product_id: "", status: "IN", quantity: "" });
+      fetchTransactions();
     })
-      .then((res) => res.text())
-      .then((msg) => {
-        setMessage(msg);
-        setShowForm(false);
-        setForm({ user_id: "", product_id: "", status: "IN", quantity: "" });
-        fetchTransactions();
-      })
-      .catch(() => setMessage("Error creating transaction"));
-  }
+    .catch(() => setMessage("Error creating transaction"));
+}
+
 
   function formatDate(dateStr) {
     if (!dateStr) return "-";
@@ -41,27 +53,35 @@ function Transactions() {
   }
 
   return (
+    
     <div>
       {message && <div className="alert">{message} <button onClick={() => setMessage("")}>×</button></div>}
 
       <div className="toolbar">
-        <h2 className="section-title">Transactions</h2>
-        <button className="btn btn-primary" onClick={() => setShowForm(!showForm)}>
+        <h2 className="section-title ">Transactions</h2>
+        <button className="btn btn-primary"  style={{ marginBottom:-30,fontSize:14,marginRight:50}}onClick={() => setShowForm(!showForm)}>
           {showForm ? "Cancel" : "+ New transaction"}
         </button>
       </div>
-
+      
       {showForm && (
         <div className="form-card">
           <h3 className="form-title">New transaction</h3>
           <form onSubmit={handleSubmit} className="form-grid">
             <div className="form-group">
-              <label>User ID</label>
-              <input type="number" value={form.user_id} onChange={(e) => setForm({ ...form, user_id: e.target.value })} required />
-            </div>
-            <div className="form-group">
-              <label>Product ID</label>
-              <input type="number" value={form.product_id} onChange={(e) => setForm({ ...form, product_id: e.target.value })} required />
+              <label>Product</label>
+              <select
+                value={form.product_id}
+                onChange={(e) => setForm({ ...form, product_id: e.target.value })}
+                required
+              >
+                <option value="">Select a product</option>
+                {products.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.name}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="form-group">
               <label>Type</label>
@@ -118,3 +138,4 @@ function Transactions() {
 }
 
 export default Transactions;
+

@@ -68,7 +68,7 @@ function Products() {
 
       <div className="toolbar">
         <h2 className="section-title">Products</h2>
-        <button className="btn btn-primary" onClick={() => { setShowForm(!showForm); setEditProduct(null); setForm({ name: "", price: "", quantity: "", user_id: 1 }); }}>
+        <button className="btn btn-primary"  style={{ marginBottom:-30,fontSize:14,marginRight:50}} onClick={() => { setShowForm(!showForm); setEditProduct(null); setForm({ name: "", price: "", quantity: "", user_id: 1 }); }}>
           {showForm ? "Cancel" : "+ Add product"}
         </button>
       </div>
@@ -134,3 +134,4 @@ function Products() {
 }
 
 export default Products;
+
