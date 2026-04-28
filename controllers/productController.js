@@ -1,5 +1,5 @@
 const productModel = require("../models/productModel");
-
+    
 // CREATE
 const createProduct = (req, res) => {
   const { name, price, quantity, user_id } = req.body;

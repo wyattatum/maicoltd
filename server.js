@@ -1,20 +1,24 @@
 const express = require("express");
-//import routes
+const cors = require("cors");
+const authMiddleware = require("./middleware/auth");
+// import routes
 const userRoutes = require("./routes/user_routes");
 const productRoutes = require("./routes/productRoutes");
-const transactionRoutes= require("./routes/transaction_routes");
+const transactionRoutes = require("./routes/transaction_routes");
 
 const app = express();
 
 // middleware (IMPORTANT)
 app.use(express.json());
+app.use(cors());
 
 // ✅ USE ROUTES
-app.use("/", userRoutes);
+app.use("/api/users", userRoutes);
 
-app.use("/", productRoutes);
+app.use("/api", productRoutes);
 
-app.use("/", transactionRoutes);
+app.use("/api", authMiddleware ,transactionRoutes);
+
 
 
 // TEST route

@@ -9,8 +9,9 @@ exports.getTransactions = (req, res) => {
 
 //create newstock
 exports.createTransaction = (req, res) => {
-  const { user_id, product_id, status, quantity } = req.body;
-    console.log(req.body);
+  const user_id = req.user.id; 
+  const {  product_id, status, quantity } = req.body;
+  console.log(req.body);
   transactionModel.createTransaction(
     user_id,
     product_id,

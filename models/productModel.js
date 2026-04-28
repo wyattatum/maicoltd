@@ -9,7 +9,7 @@ exports.createProduct = (name, price, quantity, user_id, callback) => {
 // READ ALL
 exports.getAllProducts = (callback) => {
   //const sql = "SELECT * FROM mproduct";
-  const sql = "SELECT  p.id,p.quantity,p.price,u.name AS STOCKER FROM mproduct p JOIN users u ON p.user_id = u.id";
+  const sql = "SELECT  p.id, p.name, p.price,p.quantity, u.name AS STOCKER FROM mproduct p JOIN users u ON p.user_id = u.id";
   db.query(sql, callback);
 };
 
