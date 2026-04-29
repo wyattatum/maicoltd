@@ -21,3 +21,8 @@ The frontend is built with React, including components for login, signup, produc
   cd backendOverview
   npm install
   npm start
+- Navigate to frontendOverview/ and install dependencies:
+    ```bash
+    cd frontendOverview
+    npm install
+    npm run dev
